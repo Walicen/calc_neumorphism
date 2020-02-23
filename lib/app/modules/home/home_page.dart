@@ -1,10 +1,14 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:calc_neumorphism/app/modules/home/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import 'widgets/calc_button.dart';
 
-
 class HomePage extends StatefulWidget {
   final String title;
+
   const HomePage({Key key, this.title = "Home"}) : super(key: key);
 
   @override
@@ -18,6 +22,8 @@ class _HomePageState extends State<HomePage> {
     final heightScreenText = screenSize.height * 0.4;
     final heigthKeyboard = screenSize.height * 0.6;
 
+    final HomeController _controller = Modular.get();
+
     return Scaffold(
         body: Column(
       children: <Widget>[
@@ -28,7 +34,13 @@ class _HomePageState extends State<HomePage> {
           height: heightScreenText,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('90', style: TextStyle(color: Colors.white, fontSize: 80),),
+            child: Observer(
+              builder: (_) => AutoSizeText(
+                _controller.inputs,
+                style: TextStyle(color: Colors.white, fontSize: 80),
+                maxLines: 2,
+              ),
+            ),
           ),
         ),
         Container(
@@ -42,118 +54,136 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: 'AC',
                       textColor: Colors.grey,
+                      onTap: (value) {
+                        _controller.reset();
+                      },
                     ), //'⁺⁄₋'
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '⁺⁄₋',
                       textColor: Colors.grey,
+                      onTap: (_) {},
                     ),
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '%',
                       textColor: Colors.grey,
+                      onTap: _controller.add,
                     ),
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '÷',
                       textColor: Colors.grey,
+                      onTap: _controller.add,
                     ),
                   ],
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '7',
+                      onTap: _controller.add,
                     ), //'⁺⁄₋'
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '8',
+                      onTap: _controller.add,
                     ),
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '9',
+                      onTap: _controller.add,
                     ),
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
-                      text: 'x',
+                      text: '*',
                       textColor: Colors.grey,
+                      onTap: _controller.add,
                     ),
                   ],
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '4',
+                      onTap: _controller.add,
                     ), //'⁺⁄₋'
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '5',
+                      onTap: _controller.add,
                     ),
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '6',
+                      onTap: _controller.add,
                     ),
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '-',
                       textColor: Colors.grey,
+                      onTap: _controller.add,
                     ),
                   ],
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '1',
+                      onTap: _controller.add,
                     ), //'⁺⁄₋'
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '2',
+                      onTap: _controller.add,
                     ),
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '3',
+                      onTap: _controller.add,
                     ),
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '+',
                       textColor: Colors.grey,
+                      onTap: _controller.add,
                     ),
                   ],
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Container(
                       // height: heigthKeyboard / 5 - 15,
@@ -163,18 +193,21 @@ class _HomePageState extends State<HomePage> {
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '0',
+                      onTap: _controller.add,
                     ),
                     CalcButton(
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '.',
                       textColor: Colors.grey,
+                      onTap: _controller.add,
                     ),
                     CalcButton(
                       backgroundColor: Color.fromRGBO(242, 206, 57, 1),
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '=',
+                      onTap: (value) {_controller.result();},
                     ),
                   ],
                 ),

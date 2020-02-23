@@ -5,11 +5,28 @@ part 'home_controller.g.dart';
 class HomeController = _HomeBase with _$HomeController;
 
 abstract class _HomeBase with Store {
+
+  static const operations = const ['⁺⁄₋', '%', '÷', '*', '-', '+'];
   @observable
-  int value = 0;
+  String inputs = '';
 
   @action
-  void increment() {
-    value++;
+  void add(String value) {
+    if(operations.contains(value)){
+      print('OPERAÇÃO');
+    }
+    inputs += value;
+  }
+
+  @action
+  void reset() {
+    inputs = '';
+  }
+
+  @action
+  result() {
+    List<String> list = inputs.split(new RegExp(r'[^\w\s]+'));
+    print(list.length);
+    list.forEach((value) => print('$value'));
   }
 }

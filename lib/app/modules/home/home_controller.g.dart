@@ -9,30 +9,50 @@ part of 'home_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeBase, Store {
-  final _$valueAtom = Atom(name: '_HomeBase.value');
+  final _$inputsAtom = Atom(name: '_HomeBase.inputs');
 
   @override
-  int get value {
-    _$valueAtom.context.enforceReadPolicy(_$valueAtom);
-    _$valueAtom.reportObserved();
-    return super.value;
+  String get inputs {
+    _$inputsAtom.context.enforceReadPolicy(_$inputsAtom);
+    _$inputsAtom.reportObserved();
+    return super.inputs;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.context.conditionallyRunInAction(() {
-      super.value = value;
-      _$valueAtom.reportChanged();
-    }, _$valueAtom, name: '${_$valueAtom.name}_set');
+  set inputs(String value) {
+    _$inputsAtom.context.conditionallyRunInAction(() {
+      super.inputs = value;
+      _$inputsAtom.reportChanged();
+    }, _$inputsAtom, name: '${_$inputsAtom.name}_set');
   }
 
   final _$_HomeBaseActionController = ActionController(name: '_HomeBase');
 
   @override
-  void increment() {
+  void add(String value) {
     final _$actionInfo = _$_HomeBaseActionController.startAction();
     try {
-      return super.increment();
+      return super.add(value);
+    } finally {
+      _$_HomeBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void reset() {
+    final _$actionInfo = _$_HomeBaseActionController.startAction();
+    try {
+      return super.reset();
+    } finally {
+      _$_HomeBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic result() {
+    final _$actionInfo = _$_HomeBaseActionController.startAction();
+    try {
+      return super.result();
     } finally {
       _$_HomeBaseActionController.endAction(_$actionInfo);
     }
