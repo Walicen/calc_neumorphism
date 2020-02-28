@@ -5,17 +5,22 @@ part 'home_controller.g.dart';
 class HomeController = _HomeBase with _$HomeController;
 
 abstract class _HomeBase with Store {
-
   static const operations = const ['⁺⁄₋', '%', '÷', '*', '-', '+'];
   @observable
   String inputs = '';
 
+  @observable
+  String operation = '';
+
   @action
   void add(String value) {
-    if(operations.contains(value)){
+    if (operations.contains(value)) {
       print('OPERAÇÃO');
+      operation = value;
+      inputs = '';
+    } else {
+      inputs += value;
     }
-    inputs += value;
   }
 
   @action

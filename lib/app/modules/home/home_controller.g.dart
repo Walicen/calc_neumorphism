@@ -26,6 +26,23 @@ mixin _$HomeController on _HomeBase, Store {
     }, _$inputsAtom, name: '${_$inputsAtom.name}_set');
   }
 
+  final _$operationAtom = Atom(name: '_HomeBase.operation');
+
+  @override
+  String get operation {
+    _$operationAtom.context.enforceReadPolicy(_$operationAtom);
+    _$operationAtom.reportObserved();
+    return super.operation;
+  }
+
+  @override
+  set operation(String value) {
+    _$operationAtom.context.conditionallyRunInAction(() {
+      super.operation = value;
+      _$operationAtom.reportChanged();
+    }, _$operationAtom, name: '${_$operationAtom.name}_set');
+  }
+
   final _$_HomeBaseActionController = ActionController(name: '_HomeBase');
 
   @override

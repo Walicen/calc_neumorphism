@@ -27,21 +27,37 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         body: Column(
       children: <Widget>[
-        Container(
-          alignment: Alignment.bottomRight,
-          width: double.infinity,
-          color: Color(0xFF141414),
-          height: heightScreenText,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Observer(
-              builder: (_) => AutoSizeText(
-                _controller.inputs,
-                style: TextStyle(color: Colors.white, fontSize: 80),
-                maxLines: 2,
+        Stack(
+          children: <Widget>[
+            Container(
+              alignment: Alignment.bottomRight,
+              width: double.infinity,
+              color: Color(0xFF141414),
+              height: heightScreenText,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Observer(
+                  builder: (_) => AutoSizeText(
+                    _controller.inputs,
+                    style: TextStyle(color: Colors.white, fontSize: 80),
+                    maxLines: 2,
+                  ),
+                ),
               ),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.only(top: 50.0, left: 20),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Observer(
+                  builder: (_) => Text(
+                    _controller.operation,
+                    style: TextStyle(color: Colors.white, fontSize: 30),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         Container(
           color: Color.fromRGBO(240, 240, 240, 1),
@@ -207,7 +223,9 @@ class _HomePageState extends State<HomePage> {
                       heigthKeyboard: heigthKeyboard,
                       screenSize: screenSize,
                       text: '=',
-                      onTap: (value) {_controller.result();},
+                      onTap: (value) {
+                        _controller.result();
+                      },
                     ),
                   ],
                 ),
